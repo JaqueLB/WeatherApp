@@ -30,12 +30,14 @@ class WeatherTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func updateWeather(forLocation location: String) {
+        navigationItem.title = location
         CLGeocoder().geocodeAddressString(location) { (placemarks: [CLPlacemark]?, error: Error?) in
             if error == nil {
                 if let location = placemarks?.first?.location {
                     Forecast.fetch(withLocation: location.coordinate) { (results: [Forecast]?) in
                         if let weatherData = results {
                             self.forecastData = weatherData
+                            // todo o fetch eh feito em background, e depois trabalha com thread principal do device para atualizar a UI
                             DispatchQueue.main.async {
                                 // this triggers the numberOfSections, numberOfRowsInSection and cellForRowAt delegates
                                 self.tableView.reloadData() // to apply to our main processes the change
