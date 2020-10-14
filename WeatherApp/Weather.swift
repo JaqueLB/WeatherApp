@@ -58,7 +58,7 @@ struct Forecast {
         } else { throw SerializationError.missing("temp is missing") }
     }
 
-    static let basePath="https://api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly&appid=f3..37&lang=pt_br&units=metric"
+    static let basePath="https://api.openweathermap.org/data/2.5/onecall?exclude=minutely,hourly&appid=\(ApiKeys.weatherApiKey)&lang=pt_br&units=metric"
 
     static func fetch(withLocation location: CLLocationCoordinate2D, completion: @escaping ([Forecast]) -> ()) {
         let url = basePath + "&lat=\(location.latitude)&lon=\(location.longitude)"
